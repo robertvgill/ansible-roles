@@ -1,0 +1,8 @@
+---
+# vars file for ntp
+
+ansible_user: ubuntu
+
+ntp_daemon: chrony
+ntp_cron_daemon: crond
+ntp_config_file: /etc/chrony/chrony.conf

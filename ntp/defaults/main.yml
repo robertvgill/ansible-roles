@@ -1,0 +1,31 @@
+---
+# defaults file for ntp
+
+ntp_enabled: true
+ntp_timezone: Etc/UTC
+
+# Default servers to use as time sources
+# NTP server area configuration (leave empty for 'Worldwide').
+# See: http://support.ntp.org/bin/view/Servers/NTPPoolServers
+ntp_area: []
+ntp_servers:
+  - "0{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+  - "1{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+  - "2{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+  - "3{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org"
+
+ntp_cron_handler_enabled: true
+
+# NTP clients to accept queries from
+# Default is to not accept any clients.
+ntp_clients: []
+
+# Whether to use chrony in place of the classic/legacy ntp client.
+# Default is to do so.
+ntp_use_chrony: yes
+
+# Whether or not to run the NTP service (which might be chronyd, ntpd, or something else).
+ntp_run_services: not (ansible_virtualization_role == 'guest' and ansible_virtualization_type == 'docker')
+
+# Name of the package to install for chrony-based NTP.
+ntp_package: "chrony"

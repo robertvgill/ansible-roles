@@ -1,0 +1,64 @@
+---
+# defaults file for local-user
+
+# List of local groups to create/maintain.
+# Each group is a dict with a name field, and the following defaults:
+# - name: REQUIRED
+#   gid: REQUIRED
+#   system: false
+#
+local_user_groups:
+    - name: "{{ local_user_name }}"
+      gid: "{{ local_group_id }}"
+      system: false
+
+# List of local groups to create/maintain.
+# Each group is a dict with a name field, and the following defaults:
+# - name: REQUIRED
+#   group: REQUIRED
+#   groups: []
+#   uid: uid
+#   system: false
+#   sudo_options: []
+#   sudo_rules: []
+#   authorized_keys: [] # authorized_keys can also be used
+#   home: ""
+#
+local_user_default_accounts:
+    - name: "{{ local_user_name }}"
+      group: "{{ local_group_name }}"
+      uid: "{{ local_user_id }}"
+      home: "{{ local_home_path }}"
+      shell: /bin/bash
+      create_home: true
+      system: false
+      authorized_keys:
+        - "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+      sudo_options:
+        - "!authenticate"
+        - "!requiretty"
+      sudo_rules:
+        - ALL=(ALL) ALL
+
+local_user_accounts: "{{ local_user_default_accounts}}"
+
+# A list of the authorised keys to add for _all_ users managed by this
+# role.
+local_user_default_authorized_keys: []
+
+# A list of sudo options to apply to _all_ users managed by this role.
+# Typical use case would be e.g. !requiretty.
+local_user_default_sudo_options: []
+
+# A list of sudo rules to apply to _all_ users managed by this role.
+# Typical use case would be e.g. !requiretty.
+local_user_default_sudo_rules: []
+
+# The default shell for local users.
+local_user_default_shell: /sbin/nologin
+
+# A default path to use for authorized_keys.
+# This is typically used when keys are centrally managed, in which case
+# it would be something like:
+# local_user_default_authorized_keys_path: "/etc/ssh/authorized_keys/%u"
+local_user_default_authorized_keys_path: false

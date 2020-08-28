@@ -1,0 +1,8 @@
+---
+# vars file for local-user
+
+local_user_name: []
+local_group_name: []
+local_home_path: []
+local_user_id: []
+local_group_id: []

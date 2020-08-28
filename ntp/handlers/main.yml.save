@@ -1,0 +1,13 @@
+---
+# handlers file for ntp
+
+- name: ntp | service | restart chrony
+  service:
+    name: >-
+      {% if ansible_os_family == "RedHat" -%}
+      chronyd
+      {%- elif ansible_distribution == "Ubuntu" and ansible_distribution_release == "bionic" -%}
+      chrony
+      {%- endif %}
+    state: restarted
+#  when: "ntp_run_service" == true

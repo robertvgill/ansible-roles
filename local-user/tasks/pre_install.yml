@@ -1,0 +1,10 @@
+---
+# pre-install tasks for local-user role
+
+- name: local-user | groups | create
+  group:
+    name: "{{ item.name }}"
+    gid: "{{ item.gid }}"
+    state: present
+    system: "{{ item.system | default(false) }}"
+  with_items: "{{ local_user_groups }}"

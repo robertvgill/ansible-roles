@@ -1,0 +1,9 @@
+---
+# tasks file for ntp
+
+- block:
+    - include_tasks: chrony.yml
+#    when: ntp_use_chrony
+  tags:
+    - ntp
+    - chrony
